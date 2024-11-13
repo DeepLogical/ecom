@@ -47,10 +47,10 @@ class WorldController extends Controller
         DB::statement('truncate table users;');
 
         DB::transaction(function () {
-            $roles = [ "owner", "owner_ops", "superadmin", "admin", "teacher", "executive", "seo", "user" ];
+            $roles = [ "owner", "owner_ops", "superadmin", "admin", "executive", "seo", "user" ];
             $permissions = [ 
-                "Create Blog", "Edit Blog", "Check Blogs",                
-                "Create Teacher", "Edit Teacher", "Check Teachers",
+                "Create Blog", "Edit Blog", "Check Blogs",
+                "Create Product", "Edit Product", "Check Products",
                 "Create User", "Edit User", "Check User",
                 "Check Leads"
             ];
@@ -69,7 +69,8 @@ class WorldController extends Controller
 
     private function createAdmin(){
         $data = [
-            [ 'name' => "Deepak Tiwari", 'email' => "almora1deepak@gmail.com", "phone" => "9302785405", "role" => "owner" ]
+            [ 'name' => "Amit Kumar Khare", 'email' => "amit.khare588@gmail.com", "phone" => "8424003840", "role" => "owner" ],
+            [ 'name' => "Navneet Khare", 'email' => "navneet@gmail.com", "phone" => "8424003843", "role" => "owner" ],
         ];
 
         foreach( $data as $i ){
@@ -81,7 +82,7 @@ class WorldController extends Controller
                 'phone'                         => $i['phone'],
                 'wallet'                        => 0,
                 'password'                      => Hash::make("123456789"),
-                'referral_code'                 => 'cowoso-'.$uuid,
+                'referral_code'                 => $uuid,
                 'referred_by'                   => null,
                 'email_verified_at'             => now()
             ])->assignRole($i['role']);
